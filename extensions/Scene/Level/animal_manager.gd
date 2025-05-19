@@ -31,24 +31,10 @@ func _create_multi_baby(animal_left, animal_right, inherit_color, inherit_name) 
 	# 1匹は既存処理で生まれる
 	# 親は既存関数でこの後使用するのでここでは消さない
 	const skip_one_baby = 1
-	var farm = GSave.get_current_farm()
 	for i in range(skip_one_baby, can_create_type):
-		var node_left = animal_nodes.get(animal_left)
-		var node_right = animal_nodes.get(animal_right)
-
 		# TODO: 複数生まれる場合は子供の性能を少し下げる
 		var baby_save = Handler.creat_baby_animal(animal_left, animal_right, inherit_color, inherit_name)
-		var baby_creator = get_tree().get_nodes_in_group("BabyCreater")[0]
-		baby_creator.recive_parent_node(node_left, node_right, baby_save)
-
-		farm.animal_saves.append(baby_save)
-		baby_save.is_baby = true
-		
-		var bd_level = farm.get_facility_save(3).level
-		if bd_level > baby_creater_data.baby_cd.size():
-			bd_level = baby_creater_data.baby_cd.size()
-			farm.get_facility_save(3)["level"] = bd_level
-		GSave.player_save.baby_cd = baby_creater_data.baby_cd[bd_level - 1]
+		GState.add_animal.emit(baby_save)
 
 ## 赤ちゃんの生まれる数を決定する
 func _create_baby_multi_type() -> int:
