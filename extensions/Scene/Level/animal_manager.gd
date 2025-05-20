@@ -1,7 +1,25 @@
 extends "res://Scene/Level/animal_manager.gd"
 
+var create_baby_probability = {
+	"single": 85,
+	"double": 10,
+	"triple": 5
+}
+
 # 双子以上の赤ちゃんのデータ
 var babies = []
+
+func _ready() -> void:
+	super()
+	
+	_load_config()
+
+## 設定ファイルをロード
+## C:\Users\%username%\AppData\Roaming\TinyPasture\mod_configs\mod-id
+func _load_config() -> void:
+	var custom = ModLoaderConfig.get_config("rin_jugatla-multi_baby", "custom")
+	if custom:
+		create_baby_probability = custom.data.get("create_baby_probability")
 
 ## baby_creatorのカーテンが開くタイミングで発火
 func _on_add_animal_in_pos(animal: AnimalSave, pos_x: float):
@@ -23,13 +41,6 @@ enum CreateBabyType {
 	triple = 3
 }
 
-## 赤ちゃんの生まれる確率
-const CreateBabyProbability = {
-	single = 85,
-	double = 10,
-	triple = 5
-}
-
 ## 複数の赤ちゃんを生む処理
 func _create_multi_baby(animal_left: AnimalSave) -> void:
 	var baby_multi_type = _create_baby_multi_type()
@@ -47,9 +58,9 @@ func _create_multi_baby(animal_left: AnimalSave) -> void:
 ## 赤ちゃんの生まれる数を決定する
 func _create_baby_multi_type() -> int:
 	var random = randf_range(0, 100)
-	if random < CreateBabyProbability.single:
+	if random < create_baby_probability.single:
 		return CreateBabyType.single
-	elif random < CreateBabyProbability.single + CreateBabyProbability.double:
+	elif random < create_baby_probability.single + create_baby_probability.double:
 		return CreateBabyType.double
 	else:
 		return CreateBabyType.triple
