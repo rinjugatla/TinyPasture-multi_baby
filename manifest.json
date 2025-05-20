@@ -13,7 +13,20 @@
 				"7.0.1"
 			],
 			"config_schema": {
-
+				"title": "Config",
+				"description": "Config for this Mod",
+				"type": "object",
+				"properties": {
+					"create_baby_probability": {
+						"title": "create_baby_probability",
+						"type": "object",
+						"default": {
+							"single": 85,
+							"double": 10,
+							"triple": 5
+						}
+					}
+				}
 			},
 			"description_rich": "",
 			"image": null,
