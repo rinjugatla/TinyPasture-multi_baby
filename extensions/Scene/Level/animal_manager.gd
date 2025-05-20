@@ -37,14 +37,13 @@ const CreateBabyProbability = {
 ## 複数の赤ちゃんを生む処理
 func _create_multi_baby(animal_left, animal_right, inherit_color, inherit_name) -> void:
 	var baby_multi_type = _create_baby_multi_type()
-	var can_create_type = _can_create_baby_multi_type(baby_multi_type)
-	if can_create_type == CreateBabyType.single:
+	if baby_multi_type == CreateBabyType.single:
 		return
 	
 	# 1匹は既存処理で生まれる
 	# 親は既存関数でこの後使用するのでここでは消さない
 	const skip_one_baby = 1
-	for i in range(skip_one_baby, can_create_type):
+	for i in range(skip_one_baby, baby_multi_type):
 		# TODO: 複数生まれる場合は子供の性能を少し下げる
 		var baby_save = Handler.creat_baby_animal(animal_left, animal_right, inherit_color, inherit_name)
 		babies.append(baby_save)
@@ -59,36 +58,12 @@ func _create_baby_multi_type() -> int:
 	else:
 		return CreateBabyType.triple
 
-## 実際に赤ちゃんが生まれることのできる数
-## 2匹生まれる確率の場合でも牧場に空きが足りない場合は差し引く
-func _can_create_baby_multi_type(create_baby_type: CreateBabyType) -> CreateBabyType:
-	# 既存処理で1匹は確実に生まれる枠がある
-	if create_baby_type == CreateBabyType.single:
-		return CreateBabyType.single
-	
-	var farm = GSave.get_current_farm()
-	var empty_slot_count = farm.get_animal_slot() - farm.animal_saves.size()
-	if create_baby_type == CreateBabyType.double:
-		if empty_slot_count >= 2:
-			return CreateBabyType.double
-		else:
-			return CreateBabyType.single
-	elif create_baby_type == CreateBabyType.triple:
-		if empty_slot_count >= 3:
-			return CreateBabyType.triple
-		elif empty_slot_count == 2:
-			return CreateBabyType.double
-		else:
-			return CreateBabyType.single
-
-	return CreateBabyType.single
-
 ## 赤ちゃんをマップに生成
 ## セーブデータに追加すると自動的にマップに生成される
 func _spawn_multi_baby() -> void:
 	if babies.is_empty():
 		return
-		
+	
 	var farm = GSave.get_current_farm()
 	for baby: AnimalSave in babies:
 		if farm.check_is_animal_addable():
