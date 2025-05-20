@@ -24,14 +24,10 @@ enum CreateBabyType {
 }
 
 ## 赤ちゃんの生まれる確率
-## 50%:1匹, 30%:2匹, 20%:3匹
 const CreateBabyProbability = {
-	#single = 50,
-	#double = 30,
-	#triple = 20
-	single = 0,
-	double = 0,
-	triple = 100
+	single = 85,
+	double = 10,
+	triple = 5
 }
 
 ## 複数の赤ちゃんを生む処理
