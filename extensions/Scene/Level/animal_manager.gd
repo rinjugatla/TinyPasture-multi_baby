@@ -83,6 +83,7 @@ func _spawn_multi_baby() -> void:
 	
 	var farm = GSave.get_current_farm()
 	for baby: AnimalSave in babies:
+		# 枠を確保しないで生成するので、繁殖中に枠が埋まっていないかチェック
 		if farm.check_is_animal_addable():
 			GState.add_animal.emit(baby)
 		baby.is_baby = false
