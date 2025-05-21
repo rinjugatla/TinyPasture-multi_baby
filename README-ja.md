@@ -1,6 +1,6 @@
 # Tiny Pasture 双子三つ子MOD
 
-English Readme
+[English Readme](https://github.com/rinjugatla/TinyPasture-multi_baby)
 
 ## Tiny Pasture
 

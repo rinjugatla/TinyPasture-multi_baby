@@ -1,6 +1,6 @@
 # Tiny Pasture twins and triplets mod
 
-日本語説明書
+[日本語説明書](https://github.com/rinjugatla/TinyPasture-multi_baby/blob/main/README-ja.md)
 
 ## Tiny Pasture
 
