@@ -19,7 +19,10 @@ func _ready() -> void:
 func _load_config() -> void:
 	var custom = ModLoaderConfig.get_config("rin_jugatla-multi_baby", "custom")
 	if custom:
-		create_baby_probability = custom.data.get("create_baby_probability")
+		var probability = custom.data.get("create_baby_probability")
+		var is_valid = probability.has("single") and probability.has("double") and probability.has("triple")
+		if is_valid:
+			create_baby_probability = probability
 
 ## baby_creatorのカーテンが開くタイミングで発火
 func _on_add_animal_in_pos(animal: AnimalSave, pos_x: float):
