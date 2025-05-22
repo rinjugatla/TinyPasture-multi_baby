@@ -16,6 +16,7 @@ func _init() -> void :
 func install_script_extensions() -> void :
 	extensions_dir_path = mod_dir_path.path_join("extensions")
 
+	ModLoaderMod.install_script_extension(extensions_dir_path.path_join("Manager/FarmDB.gd"))
 	ModLoaderMod.install_script_extension(extensions_dir_path.path_join("Scene/Level/animal_manager.gd"))
 
 func _ready() -> void :

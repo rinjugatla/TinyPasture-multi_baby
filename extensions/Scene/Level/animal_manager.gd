@@ -52,7 +52,10 @@ func _create_multi_baby(animal_left: AnimalSave) -> void:
 	
 	# 1匹は既存処理で生まれる
 	# 親は既存関数でこの後使用するのでここでは消さない
-	var pack = FarmDB.get_card_pack_data(animal_left.type_id)
+	var pack = FarmDB.get_card_pack_data_by_animal_id(animal_left.type_id)
+	if !pack:
+		return
+		
 	const skip_one_baby = 1
 	for i in range(skip_one_baby, baby_multi_type):
 		var baby_save = _create_new_random_baby(pack)
